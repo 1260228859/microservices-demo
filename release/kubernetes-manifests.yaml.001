@@ -114,8 +114,8 @@ spec:
           #   value: "1"
           # - name: DISABLE_TRACING
           #   value: "1"
-          - name: DISABLE_PROFILER
-            value: "1"
+          # - name: DISABLE_PROFILER
+          #   value: "1"
           # - name: JAEGER_SERVICE_ADDR
           #   value: "jaeger-collector:14268"
           resources:
@@ -173,8 +173,8 @@ spec:
           value: "productcatalogservice:3550"
         # - name: DISABLE_TRACING
         #   value: "1"
-        - name: DISABLE_PROFILER
-          value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
         # - name: DISABLE_DEBUGGER
         #   value: "1"
         resources:
@@ -255,8 +255,8 @@ spec:
             value: "gcp"
           # - name: DISABLE_TRACING
           #   value: "1"
-          - name: DISABLE_PROFILER
-            value: "1"
+          # - name: DISABLE_PROFILER
+          #   value: "1"
           # - name: JAEGER_SERVICE_ADDR
           #   value: "jaeger-collector:14268"
           resources:
@@ -273,6 +273,19 @@ metadata:
   name: frontend
 spec:
   type: NodePort
+  selector:
+    app: frontend
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-external
+spec:
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
@@ -355,8 +368,8 @@ spec:
         #   value: "1"
         # - name: DISABLE_TRACING
         #   value: "1"
-        - name: DISABLE_PROFILER
-          value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
         # - name: JAEGER_SERVICE_ADDR
         #   value: "jaeger-collector:14268"
         readinessProbe:
@@ -501,8 +514,8 @@ spec:
           value: "7000"
         # - name: DISABLE_TRACING
         #   value: "1"
-        - name: DISABLE_PROFILER
-          value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
         # - name: DISABLE_DEBUGGER
         #   value: "1"
         readinessProbe:
@@ -557,8 +570,8 @@ spec:
         #   value: "1"
         # - name: DISABLE_TRACING
         #   value: "1"
-        - name: DISABLE_PROFILER
-          value: "1"
+        # - name: DISABLE_PROFILER
+        #   value: "1"
         # - name: JAEGER_SERVICE_ADDR
         #   value: "jaeger-collector:14268"
         readinessProbe:

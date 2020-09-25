@@ -61,6 +61,7 @@ spec:
     targetPort: 8080
   selector:
     app: default-http-backend
+  type: ClusterIP
 ---
 
 kind: ConfigMap
@@ -227,7 +228,7 @@ metadata:
   name: nginx-ingress-controller
   namespace: ingress-nginx 
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ingress-nginx
@@ -239,6 +240,7 @@ spec:
         prometheus.io/port: '10254'
         prometheus.io/scrape: 'true'
     spec:
+      hostNetwork: true
       serviceAccountName: nginx-ingress-serviceaccount
       containers:
         - name: nginx-ingress-controller

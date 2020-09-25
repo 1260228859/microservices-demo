@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-nginx                                                           #要和ingress-nginx中的serviceName一样
+  namespace: ingress-nginx
+spec:
+  selector:
+    app: mynginx
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydepoy
+  namespace: ingress-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mynginx
+  template:
+    metadata:
+      labels:
+        app: mynginx
+    spec:
+      containers:
+      - name: mycontainer
+        image: nginx:1.7.9
+        imagePullPolicy: IfNotPresent
+
